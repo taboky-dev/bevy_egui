@@ -740,6 +740,7 @@ impl EguiContexts<'_, '_> {
 /// A resource for storing `bevy_egui` user textures.
 #[derive(Clone, Resource, ExtractResource)]
 #[cfg(feature = "render")]
+#[extract_app(RenderApp)]
 pub struct EguiUserTextures {
     textures: HashMap<AssetId<Image>, (EguiTextureHandle, u64)>,
     free_list: Vec<u64>,
@@ -1204,8 +1205,8 @@ impl Plugin for EguiPlugin {
             load_internal_asset!(
                 app,
                 render::EGUI_SHADER_HANDLE,
-                "render/egui.wgsl",
-                bevy_shader::Shader::from_wgsl
+                "render/egui.wesl",
+                bevy_shader::Shader::from_wesl
             );
 
             let Some(render_app) = app.get_sub_app_mut(RenderApp) else {
